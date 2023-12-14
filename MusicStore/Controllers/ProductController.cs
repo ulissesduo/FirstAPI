@@ -6,35 +6,47 @@ namespace MusicStore.Controllers
 {
     public class ProductController : Controller
     {
-        Uri baseAddress = new Uri("http://localhost:7077/api");
         private readonly HttpClient _httpClient;
-        public ProductController()
-        {
-            _httpClient = new HttpClient();
-            _httpClient.BaseAddress = baseAddress;
-        }
-        [HttpGet]
-        public  IActionResult Index()        
-        {
-            List<ProductViewModel> productList = new List<ProductViewModel>();
-            HttpResponseMessage response = _httpClient.GetAsync("/products/Get").Result;
 
-            if (response.IsSuccessStatusCode)
+        public ProductController(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+            // Configure the base address of your API
+            //_httpClient.BaseAddress = new Uri("http://localhost:7077/api/");
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            try
             {
-                // Handle the successful response here, e.g., read content
-                string data = response.Content.ReadAsStringAsync().Result;
-                productList = JsonConvert.DeserializeObject<List<ProductViewModel>>(data);
+                using (HttpResponseMessage response = await _httpClient.GetAsync("api/products/Get"))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Handle the successful response here
+                        string data = await response.Content.ReadAsStringAsync();
+                        // Process the data as needed
+
+                        List<ProductViewModel> products = JsonConvert.DeserializeObject<List<ProductViewModel>>(data);
+
+                        // Redirect to another view or return a specific view based on the data
+                        return View("Index", products);
+                    }
+                    else
+                    {
+                        // Handle the error response here
+                        ViewBag.ErrorMessage = $"Error: {response.StatusCode}";
+                        return View("Error");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // Handle the error response here
-                // For example, you can set an error message and return an error view
-                ViewBag.ErrorMessage = "Error fetching products";
+                // Log the exception
+                ViewBag.ErrorMessage = $"An error occurred: {ex.Message}";
                 return View("Error");
             }
 
-            return View(productList);
         }
-
     }
 }

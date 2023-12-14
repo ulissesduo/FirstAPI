@@ -10,13 +10,9 @@ builder.Services.AddHttpClient<ProductController>(client =>
 {
     client.BaseAddress = new Uri("http://localhost:7077/api");
 });
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins("http://localhost:5023") // Add the correct origin for your web app
-                          .AllowAnyHeader()
-                          .AllowAnyMethod());
-});
+
+string baseUrl = "https://localhost:7077";
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(baseUrl) });
 
 // In Configure method
 

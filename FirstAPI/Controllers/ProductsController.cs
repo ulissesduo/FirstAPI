@@ -21,6 +21,7 @@ namespace FirstAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
+
             var products = await _productRepository.GetAll();
             return Ok(products);
         }
