@@ -1,11 +1,23 @@
 {
   "Version": 1,
-  "Hash": "EBs/evZb030uYHaq3fQMc2KqIk9+mzqkaECzTqPMlGw=",
+  "Hash": "qsFopJOC6BpeFLpceIpu4aX4x7ucQEH3Laq+nWb70+c=",
   "Source": "MusicStore",
   "BasePath": "_content/MusicStore",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\uliss\\source\\repos\\FirstAPI\\FirstAPI\\FirstAPI.csproj",
+      "Version": 2,
+      "Source": "FirstAPI",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
   "DiscoveryPatterns": [
     {
       "Name": "MusicStore\\wwwroot",
